@@ -1,27 +1,68 @@
 <div class="top-menu">
-
-    <img class="logo"
-         src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
-
+  <img
+    class="logo"
+    src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png"
+  />
 </div>
 
+<button (click)="onCoursesEdit()">Edit Courses</button>
 
-<div class="courses">
+<div class="demo" #demoDiv>
+  <div>Start date: {{ startDate | date: 'MMM/dd/yy' }}</div>
+</div>
 
-    <div class="course-card">
+<div class="courses" (click)="clickHandler()">
+  <!-- @for (course of courses; track trackCourse($index, course); let index = $index; let count =
+  $count; let first = $first; let last = $last; let even = $even; let odd = $odd) {
 
-        <div class="course-title">
-            Angular Core Deep Dive
-        </div>
-        <img width="300" alt="Angular Logo"
-             src="https://s3-us-west-1.amazonaws.com/angular-university/course-images/angular-core-in-depth-small.png">
+    <course-card
+        [course]="course"
+        [index]="index"
+        [class.is-first]="first"
+        [class.is-last]="last"
+        [class.is-even]="even"
+        [class.is-odd]="odd"
+        (courseSelected)="onCourseSelected($event)"
+    />
+  } @empty {
+    <h1>No courses found</h1>
+  } -->
+    <!-- <course-card
+      *ngFor="let course of courses; index as i; first as isFirst; last as isLast; 
+          even as isEven; odd as isOdd; trackBy: trackCourse"
+      [course]="course"
+      [index]="i + 1"
+      [class.is-first]="isFirst"
+      [class.is-last]="isLast"
+      [class.is-even]="isEven"
+      [class.is-odd]="isOdd"
+      (courseSelected)="onCourseSelected($event)" 
+    /> -->
 
+    <ng-template #noImage let-courseName="description">
+      <p class="warn">{{ courseName }} has no image yet</p>
+      <img src="/assets/empty-image.png">
+    </ng-template>
+
+    <ng-template ngFor let-course [ngForOf]="courses" let-i="index" [ngForTrackBy]="trackCourse" let-isFirst="first" let-isLast="last" let-isEven="even" let-isOdd="odd">
+      <course-card
+        [course]="course"
+        [index]="i + 1"
+        [class.is-first]="isFirst"
+        [class.is-last]="isLast"
+        [class.is-even]="isEven"
+        [class.is-odd]="isOdd"
+        [noImageTpl]="noImage"
+        (courseSelected)="onCourseSelected($event)" 
+      >
+        <!-- <img width="300" alt="Angular Logo" [src]="course.iconUrl" #courseImage /> -->
+        <course-image [src]="course.iconUrl" #courseImage />
         <div class="course-description">
-            A detailed walk-through of the most important part of Angular - the Core and Common modules.
+          {{ course.longDescription }}
         </div>
+        Edit description: <textarea></textarea>
+      </course-card>
+    </ng-template>
 
-    </div>
-
+    <!-- <course-card #card [course]="courses[0]" index="0" (courseSelected)="onCourseSelected($event)" /> -->
 </div>
-
-
