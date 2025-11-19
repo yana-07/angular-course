@@ -5,20 +5,46 @@
 
 </div>
 
+<div style="border: 5px solid red; min-height: 200px; margin: 10px;">
+  <button (click)="onPrefetch()">Trigger prefetch</button>
+  <button (click)="onDisplay()">Trigger activate</button>
+</div>
+<!-- <h1 #title>Viewport trigger</h1> -->
 
-
+<!-- <div class="demo-triggers">
+  <input #prefetch placeholder="Type something to trigger prefetch">
+  <button #activate>Click to trigger activate</button>
+</div> -->
 
 <div>
+  <!-- @defer(on timer(6s); prefetch on timer(1s)) -->
+
+  <!-- @defer(on viewport(title); prefetch on idle) { -->
+  <!-- @defer(on interaction(activate); prefetch on interaction(prefetch)) { -->
+  @defer(when display; prefetch when performPrefetch) {
+
+    <div class="courses">
 
       @for (course of courses; track $index; let count = $count) {
-
+  
         <course-card
           [course]="course"
           [cardIndex]="$index"
           (courseSelected)="onCourseSelected($event)" />
-
-      }
   
+      }
+
+    </div>
+  }
+  @placeholder(minimum 1s) {
+    <h2>This is a placeholder!</h2>
+  }
+  @loading(minimum 5s; after 0s) {
+    <h2>Loading courses... please wait.</h2>
+  }
+  @error {
+    <h2>Oops... something went wrong loading the courses.</h2>
+  }
 </div>
 
 
