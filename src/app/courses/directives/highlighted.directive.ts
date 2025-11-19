@@ -1,4 +1,5 @@
 import {Directive, EventEmitter, HostBinding, HostListener, Input, Output} from '@angular/core';
+import { CoursesService } from '../courses.service';
 
 @Directive({
     selector: '[highlighted]',
@@ -13,7 +14,7 @@ export class HighlightedDirective {
     @Output()
     toggleHighlight = new EventEmitter();
 
-    constructor() {
+    constructor(/*@Host()*/ private coursesService: CoursesService) {
 
         console.log('Directive created..');
 

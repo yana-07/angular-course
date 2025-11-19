@@ -73,18 +73,14 @@
               "extractLicenses": true
             },
             "fr": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
+              "aot": true,
               "outputPath": {
                 "base": "dist/angular-course-fr/"
               },
-              "i18nFile": "src/locale/messages.fr.xlf",
-              "i18nLocale": "fr",
-              "i18nMissingTranslation": "ignore"
+              "localize": [
+                "fr"
+              ],
+              "i18nMissingTranslation": "error"
             }
           }
         },

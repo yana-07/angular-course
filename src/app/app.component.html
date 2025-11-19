@@ -6,11 +6,22 @@
 </div>
 
 <div>
+  <div class="demo">
+    <h4 i18n="welcome message|Greet the user at the beginning of the course.@@welcomeMessage">Welcome to the Angular Deep Dive Course</h4>
+    <button (click)="updateCourse()" i18n>Update course</button>
+    <div i18n>{ coursesTotal, plural,
+      =0 {No courses available.} =1 {One course is available.} 
+      other {A total of {{coursesTotal}} are available.}}
+    </div>
+  </div>
 
+  <!-- <div class="courses" *ngIf="$courses | async as courses"> -->
   <div class="courses">
 
-    <course-card *ngFor="let course of courses"
-                 [course]="course">
+    <course-card *ngFor="let course of (courses | filterByCategory: 'BEGINNER')"
+                type="beginner"
+                [course]="course"
+                (courseChanged)="onCourseChanged($event)">
 
       <course-image [src]="course.iconUrl"></course-image>
 
@@ -20,7 +31,3 @@
 
 
 </div>
-
-
-
-
